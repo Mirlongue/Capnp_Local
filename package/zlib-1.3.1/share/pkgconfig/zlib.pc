@@ -1,0 +1,13 @@
+prefix=C:/_/Zlib/zlib-1.3.1/out
+exec_prefix=C:/_/Zlib/zlib-1.3.1/out
+libdir=C:/_/Zlib/zlib-1.3.1/out/lib
+sharedlibdir=C:/_/Zlib/zlib-1.3.1/out/lib
+includedir=C:/_/Zlib/zlib-1.3.1/out/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.3.1
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
