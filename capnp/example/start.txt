@@ -1,0 +1,4 @@
+
+capnp id
+
+capnp compile -I <capnp_root>/src/capnp -oc++ test.capnp --src-prefix = <capnp_tool>
