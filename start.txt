@@ -1,6 +1,9 @@
+# /capnp/example/start.txt
+
 mkdir build
 cd build
 
 cmake ../ -G Ninja
 cmake --build .
-cmake --install .
+./capnp_demo.exe
+# cmake --install .
