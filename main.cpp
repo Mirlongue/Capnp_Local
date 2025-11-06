@@ -13,12 +13,16 @@
 using namespace std;
 
 int main(){
-    shared_ptr<capnp::MallocMessageBuilder> tmp_mbuilder_ptr = make_shared<capnp::MallocMessageBuilder>();
+    shared_ptr<capnp::MallocMessageBuilder> test0_mbuilder_ptr = make_shared<capnp::MallocMessageBuilder>();
+    test::Test::Builder test0_builder = test0_mbuilder_ptr->initRoot<test::Test>();
+    test0_builder.setTmpFlag(999);
+    test::Test::Reader test0_reader = test0_builder.asReader();
 
-    test::Test::Builder test_builder = tmp_mbuilder_ptr->initRoot<test::Test>();
-    test_builder.setTmpFlag(999);
+    shared_ptr<capnp::MallocMessageBuilder> test1_mbuilder_ptr = make_shared<capnp::MallocMessageBuilder>();
+    test1_mbuilder_ptr->setRoot(test0_reader);
+    test::Test::Builder test1_builder = test1_mbuilder_ptr->getRoot<test::Test>();
+    test::Test::Reader test1_reader = test1_builder.asReader();
 
-    cout << "hellow world!" << endl;
-    cout << test_builder.getTmpFlag() << endl;
+    cout << test1_builder.getTmpFlag() << endl;
     return 0;
 }
