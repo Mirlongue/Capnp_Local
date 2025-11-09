@@ -29,7 +29,7 @@ void dump_capnp_for_bit(std::shared_ptr<capnp::MallocMessageBuilder> tmp_mbuilde
 }
 
 template<typename T>
-std::shared_ptr<capnp::MallocMessageBuilder> get_capnp_for_bit(std::string const name){
+std::shared_ptr<capnp::MallocMessageBuilder> get_capnp_for_bit(std::string const name) {
     std::string path = PATH_ROOT + name;
     std::ifstream ifs = std::ifstream{path};
     std::shared_ptr<capnp::MallocMessageBuilder> tmp_mbuilder_ptr =
@@ -45,7 +45,7 @@ std::shared_ptr<capnp::MallocMessageBuilder> get_capnp_for_bit(std::string const
     }
     return tmp_mbuilder_ptr;
 
-} 
+}
 
 
 int main() {
@@ -61,11 +61,13 @@ int main() {
     }
     // int arr[4] = {0, 1, 2, 3};
     // test0_builder.setArrSample(arr);
-    sample::Sample::Reader test0_reader = test0_builder.asReader();
+    dump_capnp_for_bit(test0_mbuilder_ptr, "test0");
+    // sample::Sample::Reader test0_reader = test0_builder.asReader();
 
     std::shared_ptr<capnp::MallocMessageBuilder> test1_mbuilder_ptr =
-        std::make_shared<capnp::MallocMessageBuilder>();
-    test1_mbuilder_ptr->setRoot(test0_reader);
+        get_capnp_for_bit<sample::Sample>("test0");
+    //     std::make_shared<capnp::MallocMessageBuilder>();
+    // test1_mbuilder_ptr->setRoot(test0_reader);
     sample::Sample::Builder test1_builder =
         test1_mbuilder_ptr->getRoot<sample::Sample>();
     sample::Sample::Reader test1_reader = test1_builder.asReader();
@@ -81,8 +83,9 @@ int main() {
     std::cout << "integer_sample: " << integer_sample << std::endl;
     std::cout << "st_sample: " << st_sample << std::endl;
     std::cout << "arr_sample:";
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 4; i++) {
         std::cout << " " << arr_sample[i];
+    }
     std::cout << std::endl;
     std::cout << "enum_sample: " << enum_sample << std::endl;
 
