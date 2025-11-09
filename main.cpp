@@ -61,13 +61,14 @@ int main() {
     }
     // int arr[4] = {0, 1, 2, 3};
     // test0_builder.setArrSample(arr);
-    dump_capnp_for_bit(test0_mbuilder_ptr, "test0");
-    // sample::Sample::Reader test0_reader = test0_builder.asReader();
+    sample::Sample::Reader test0_reader = test0_builder.asReader();
+    // dump_capnp_for_bit(test0_mbuilder_ptr, "test0");
 
     std::shared_ptr<capnp::MallocMessageBuilder> test1_mbuilder_ptr =
-        get_capnp_for_bit<sample::Sample>("test0");
-    //     std::make_shared<capnp::MallocMessageBuilder>();
-    // test1_mbuilder_ptr->setRoot(test0_reader);
+        std::make_shared<capnp::MallocMessageBuilder>();
+    test1_mbuilder_ptr->setRoot(test0_reader);
+    // std::shared_ptr<capnp::MallocMessageBuilder> test1_mbuilder_ptr =
+    //     get_capnp_for_bit<sample::Sample>("test0");
     sample::Sample::Builder test1_builder =
         test1_mbuilder_ptr->getRoot<sample::Sample>();
     sample::Sample::Reader test1_reader = test1_builder.asReader();
