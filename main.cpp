@@ -10,7 +10,7 @@
 #include<kj/memory.h>
 #include<kj/string.h>
 #include<kj/string-tree.h>
-#include"capnp/example/example.capnp.h"
+#include"capnp/sample.capnp.h"
 
 const std::string PATH_ROOT = "D:\\Reposity_github\\Capnp_Local\\build\\";
 
@@ -49,26 +49,26 @@ std::shared_ptr<capnp::MallocMessageBuilder> get_sample_for_bit(std::string cons
 
 int main(){
     std::shared_ptr<capnp::MallocMessageBuilder> test0_mbuilder_ptr = std::make_shared<capnp::MallocMessageBuilder>();
-    capnp::Sample::Builder test0_builder = test0_mbuilder_ptr->initRoot<capnp::Sample>();
+    sample::Sample::Builder test0_builder = test0_mbuilder_ptr->initRoot<sample::Sample>();
     test0_builder.setIntegerSample(999);
     test0_builder.setStSample("hellow world!");    // std::string    char st[<length>]    char * st (no safe)
     int arr[4] = {0, 1, 2, 3};
     test0_builder.setArrSample(arr);
 
-    capnp::Sample::Reader test0_reader = test0_builder.asReader();
+    sample::Sample::Reader test0_reader = test0_builder.asReader();
     dump_sample_for_bit(test0_mbuilder_ptr,"test0");
 
     std::shared_ptr<capnp::MallocMessageBuilder> test1_mbuilder_ptr = std::make_shared<capnp::MallocMessageBuilder>();
-    test1_mbuilder_ptr = get_sample_for_bit<capnp::Sample>("test0");
-    // test1_mbuilder_ptr->setRoot(test0_reader);
+    // test1_mbuilder_ptr = get_sample_for_bit<sample::Sample>("test0");
+    test1_mbuilder_ptr->setRoot(test0_reader);
 
-    capnp::Sample::Builder test1_builder = test1_mbuilder_ptr->getRoot<capnp::Sample>();
+    sample::Sample::Builder test1_builder = test1_mbuilder_ptr->getRoot<sample::Sample>();
     capnp::List<int, capnp::Kind::PRIMITIVE>::Builder arr_builder = test1_builder.getArrSample();    // test1_builder.initArrSample(4)
     for(int i = 0; i < 4; i++) {
         arr_builder.set(i, 4 - i);    // test1_builder.getArrSample().set(i, 4 - i);
     }
 
-    capnp::Sample::Reader test1_reader = test1_builder.asReader();
+    sample::Sample::Reader test1_reader = test1_builder.asReader();
 
     int integer_sample = test1_reader.getIntegerSample();
     std::string st_sample(test1_reader.getStSample().begin(), test1_reader.getStSample().end());
@@ -91,7 +91,7 @@ int main(){
     for(int i = 0; i < 4; i++)
         std::cout << arr_sample[i] << " ";
     std::cout << std::endl;
-    std::cout << "enum_sample: " << capnp::Sample::ENUM_SAMPLE << std::endl;
+    std::cout << "enum_sample: " << sample::Sample::ENUM_SAMPLE << std::endl;
 
 
     return 0;

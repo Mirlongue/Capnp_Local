@@ -1,5 +1,3 @@
-# add capnp/capnproto-tools-win32-1.2.0 to path
+# add <project_root>/library/capnproto-tools-win32-1.2.0 to system path
 
-capnp id
-
-capnp compile -I <capnp_root>/src/capnp -oc++ test.capnp --src-prefix = <capnp_tool>
+capnp compile -I <project_root>/library/capnproto-c++-1.2.0/src/capnp -oc++ sample.capnp [--src-prefix = <project_root>/library/capnproto-tools-win32-1.2.0]

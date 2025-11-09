@@ -1,7 +1,7 @@
-@0xdb3844e515d0631b;
+@0xdb3844e515d0631b; # capnp id
 
 using Cxx = import"/c++.capnp";
-$Cxx.namespace("capnp");
+$Cxx.namespace("sample");
 
 struct Sample{
     integerSample @0: Int32;

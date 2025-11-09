@@ -1,5 +1,5 @@
 /.vscode/
 /build/
 /out/
-/capnp/example/*.capnp.h
-/capnp/example/*.capnp.c++
+/capnp/*.capnp.h
+/capnp/*.capnp.c++
