@@ -1,9 +1,13 @@
 execute <project_root>/capnp/start.txt
 
 mkdir build
+
 cd build
 
 cmake ../ -G Ninja
+
 cmake --build .
+
 ./capnp_demo.exe
+
 [cmake --install .]
