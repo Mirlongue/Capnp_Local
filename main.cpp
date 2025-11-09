@@ -44,7 +44,6 @@ std::shared_ptr<capnp::MallocMessageBuilder> get_capnp_for_bit(std::string const
         ifs.close();
     }
     return tmp_mbuilder_ptr;
-
 }
 
 
