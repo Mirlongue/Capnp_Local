@@ -2,6 +2,7 @@
 #include<iostream>
 #include<fstream>
 #include<iterator>
+#include<vector>
 #include<capnp/serialize.h>
 #include<capnp/serialize-packed.h>
 #include<capnp/message.h>
@@ -27,6 +28,25 @@ void dump_sample_for_bit(std::shared_ptr<capnp::MallocMessageBuilder> sample_mbu
     return;
 }
 
+template<typename T>
+std::shared_ptr<capnp::MallocMessageBuilder> get_sample_for_bit(std::string const name){
+    std::string path = PATH_ROOT + name;
+    std::shared_ptr<capnp::MallocMessageBuilder> sample_mbuilder_ptr = std::make_shared<capnp::MallocMessageBuilder>();
+    std::ifstream ifs = std::ifstream{path};
+    if (ifs) {
+        std::vector<char> buffer(std::istreambuf_iterator<char>{ifs}, std::istreambuf_iterator<char>{});
+        auto words = reinterpret_cast<capnp::word*>(buffer.data());
+        int wordCount = buffer.size()/ sizeof(capnp::word);
+        capnp::FlatArrayMessageReader reader(kj::ArrayPtr<capnp::word>(words, wordCount));
+        auto tmp = reader.getRoot<T>();
+        sample_mbuilder_ptr->setRoot(tmp);
+        ifs.close();
+    }
+    return sample_mbuilder_ptr;
+
+} 
+
+
 int main(){
     std::shared_ptr<capnp::MallocMessageBuilder> test0_mbuilder_ptr = std::make_shared<capnp::MallocMessageBuilder>();
     capnp::Sample::Builder test0_builder = test0_mbuilder_ptr->initRoot<capnp::Sample>();
@@ -36,10 +56,12 @@ int main(){
     test0_builder.setArrSample(arr);
 
     capnp::Sample::Reader test0_reader = test0_builder.asReader();
+    dump_sample_for_bit(test0_mbuilder_ptr,"test0");
 
     std::shared_ptr<capnp::MallocMessageBuilder> test1_mbuilder_ptr = std::make_shared<capnp::MallocMessageBuilder>();
-    test1_mbuilder_ptr->setRoot(test0_reader);
-    dump_sample_for_bit(test1_mbuilder_ptr,"test1");
+    test1_mbuilder_ptr = get_sample_for_bit<capnp::Sample>("test0");
+    // test1_mbuilder_ptr->setRoot(test0_reader);
+
     capnp::Sample::Builder test1_builder = test1_mbuilder_ptr->getRoot<capnp::Sample>();
     capnp::List<int, capnp::Kind::PRIMITIVE>::Builder arr_builder = test1_builder.getArrSample();    // test1_builder.initArrSample(4)
     for(int i = 0; i < 4; i++) {
