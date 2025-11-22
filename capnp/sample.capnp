@@ -9,3 +9,9 @@ struct Sample{
     arrSample @2: List(Int32);
     const enumSample : Int32 = 1105;
 }
+
+struct JsonSample{
+    integerSample @0: Int32;
+    stSample @1: Text;
+    arrSample @2: List(Int32);
+}
