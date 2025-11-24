@@ -1,5 +1,13 @@
 import os
 import json
+import subprocess
+
+cmd = [
+    'capnp',
+    'convert',
+    'text:canonical',
+    'sample.capnp',
+    'Sample']
 
 def json_to_txt(data, indent_level = 0):
     def format_value(value, indent_level):
@@ -16,7 +24,7 @@ def json_to_txt(data, indent_level = 0):
     formatted_pairs = []
     for key, value in data.items():
         indent = '    ' * indent_level
-        formatted_pairs.append(f'{indent}{key}={format_value(value, indent_level)}')
+        formatted_pairs.append(f'{indent}{key} = {format_value(value, indent_level)}')
     if indent_level == 0:
         return '(\n' + ',\n'.join(formatted_pairs) + '\n)'
     else:
@@ -38,7 +46,11 @@ if __name__ == '__main__':
     with open(txt_path, 'w', encoding='utf-8') as file:
         file.write(txt_data)
     
-    # os.remove(txt_path)
+    with open("sample.txt", 'r') as input_file:
+        with open("sample.dat", 'w') as output_file:
+            subprocess.run(cmd, stdin = input_file, stdout = output_file, stderr = subprocess.PIPE, shell = True)
+    
+    os.remove(txt_path)
 
 
 

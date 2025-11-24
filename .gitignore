@@ -3,3 +3,4 @@
 /out/
 /capnp/*.capnp.h
 /capnp/*.capnp.c++
+/capnp/*.dat

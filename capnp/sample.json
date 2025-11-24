@@ -1,5 +1,5 @@
 {
-    "integerSample" : 11,
-    "stSample" : "hellow world",
-    "arrSample" : [1 , 2 , 3 , 4]
+    "integerSample" : 999,
+    "stSample" : "hellow world!",
+    "arrSample" : [0 , 1 , 2 , 3]
 }
