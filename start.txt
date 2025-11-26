@@ -1,6 +1,12 @@
 capnp compile -I library/capnproto-c++-1.2.0/src/capnp -oc++ capnp/sample.capnp
 
-python capnp/json2dat.py
+cd capnp
+
+python json2dat.py
+
+cd ..
+
+# set project_path in main.cpp:15
 
 mkdir build
 
