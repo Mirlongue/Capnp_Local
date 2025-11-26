@@ -30,10 +30,10 @@ def json_to_txt(data, indent_level = 0):
     else:
         return '(\n' + ',\n'.join(formatted_pairs) + '\n' + '    ' * indent_level + ')'
 
-
 if __name__ == '__main__':
 
-    current_dir = os.getcwd()
+    script_path = os.path.abspath(__file__)
+    current_dir = os.path.dirname(script_path)
 
     json_path = os.path.join(current_dir, 'sample.json')
     with open(json_path, 'r', encoding='utf-8') as file:
@@ -45,13 +45,10 @@ if __name__ == '__main__':
     txt_path = os.path.join(current_dir, 'sample.txt')
     with open(txt_path, 'w', encoding='utf-8') as file:
         file.write(txt_data)
-    
-    with open("sample.txt", 'r') as input_file:
-        with open("sample.dat", 'w') as output_file:
+
+    dat_path = os.path.join(current_dir, 'sample.dat')
+    with open(txt_path, 'r') as input_file:
+        with open(dat_path, 'w') as output_file:
             subprocess.run(cmd, stdin = input_file, stdout = output_file, stderr = subprocess.PIPE, shell = True)
-    
+
     os.remove(txt_path)
-
-
-
-
