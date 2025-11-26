@@ -1,4 +1,6 @@
-execute <project_root>/capnp/start.txt
+capnp compile -I library/capnproto-c++-1.2.0/src/capnp -oc++ capnp/sample.capnp
+
+python capnp/json2dat.py
 
 mkdir build
 
@@ -9,5 +11,3 @@ cmake ../ -G Ninja
 cmake --build .
 
 ./capnp_demo.exe
-
-[cmake --install .]
