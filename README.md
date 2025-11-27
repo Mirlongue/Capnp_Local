@@ -2,7 +2,13 @@
 
 ## required
 
-[Python 3.11.5](https://www.python.org/downloads/)
+[CMake](https://cmake.org/download/)
+
+[Ninja](https://github.com/ninja-build/ninja/releases)
+
+[Mingw](https://github.com/niXman/mingw-builds-binaries/releases?page=1)
+
+[Python](https://www.python.org/downloads/)
 
 [capnp](https://capnproto.org/install.html) ✓
 
@@ -13,6 +19,8 @@
 ## run
 
 ```
+# add <project_root>/library/capnproto-tools-win32-1.2.0 to system path
+
 capnp compile -I library/capnproto-c++-1.2.0/src/capnp -oc++ capnp/sample.capnp
 
 cd capnp
