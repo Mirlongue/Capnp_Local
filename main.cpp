@@ -67,13 +67,13 @@ std::shared_ptr<capnp::MallocMessageBuilder> capnp_load_from_text(std::string co
 }
 
 struct Node {
-    Node (std::shared_ptr<capnp::MallocMessageBuilder> tmp_mbuilder_ptr):
+    Node (std::shared_ptr<capnp::MallocMessageBuilder> tmp_mbuilder_ptr) :
     node_mbuilder_ptr(std::make_shared<capnp::MallocMessageBuilder>()),
     node_builder(node_mbuilder_ptr->initRoot<sample::Sample>()) {
         node_builder = tmp_mbuilder_ptr->getRoot<sample::Sample>();
     }
-public:
 
+public:
     void set(std::shared_ptr<capnp::MallocMessageBuilder> tmp_mbuilder_ptr) {
         node_builder = tmp_mbuilder_ptr->getRoot<sample::Sample>();
     }
@@ -91,7 +91,6 @@ public:
 };
 
 int main() {
-
     std::shared_ptr<capnp::MallocMessageBuilder> test0_mbuilder_ptr = std::make_shared<capnp::MallocMessageBuilder>();
     sample::Sample::Builder test0_builder = test0_mbuilder_ptr->initRoot<sample::Sample>();
 
